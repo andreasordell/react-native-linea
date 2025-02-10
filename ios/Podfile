@@ -1,0 +1,14 @@
+Pod::Spec.new do |s|
+    s.name         = "react-native-linea"
+    s.version      = "2.0.0"
+    s.summary      = "React Native wrapper for Linea Pro SDK"
+    s.description  = "This is a native module for integrating Linea Pro barcode scanners with React Native apps."
+    s.homepage     = "https://github.com/andreasordell/react-native-linea"
+    s.license      = { :type => "MIT", :file => "LICENSE" }
+    s.author       = { "Angelo A" => "YOUR_EMAIL@example.com" }
+    s.platforms    = { :ios => "12.0" }
+    s.source       = { :git => "https://github.com/andreasordell/react-native-linea.git", :tag => "#{s.version}" }
+    s.source_files  = "ios/*.{h,m}"
+    s.requires_arc = true
+    s.dependency "React"
+  end

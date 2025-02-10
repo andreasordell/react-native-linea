@@ -1,7 +1,7 @@
 'use strict';
-import { Linea } from './NativeBridges';
+import { NativeModules, NativeEventEmitter } from 'react-native';
 import { NativeEventEmitter } from 'react-native';
-
+const Linea = NativeModules.RCTLinea ?? {}; // Prevent crashes if undefined
 export default class LineaPro {
     constructor() {
         this.evt = new NativeEventEmitter(Linea);
@@ -15,15 +15,21 @@ export default class LineaPro {
     static MODE_MULTI_SCAN_NO_DUPLICATES = Linea.MODE_MULTI_SCAN_NO_DUPLICATES;
 
     // For setBarcodeScanButtonMode
-    static BUTTON_DISABLED = Linea.BUTTON_DISABLED;
-    static BUTTON_ENABLED = Linea.BUTTON_ENABLED;
+    static BUTTON_DISABLED = Linea.BUTTON_DISABLED ?? 0;
+    static BUTTON_ENABLED = Linea.BUTTON_ENABLED ?? 1;
 
     initialize() {
-        Linea.initializeScanner();
+        if (Linea.initializeScanner) {
+            Linea.initializeScanner();
+        } else {
+            console.warn("Linea module not found");
+        }
     }
 
     setBarcodeScanMode(mode) {
-        Linea.setBarcodeScanMode(mode);
+        if (Linea.setBarcodeScanMode) {
+            Linea.setBarcodeScanMode(mode);
+        }
     }
 
     setBarcodeScanBeep(enabled) {
@@ -40,12 +46,7 @@ export default class LineaPro {
 
     addConnectionStateListener(callback) {
         return this.evt.addListener('connectionState', (data) => {
-            if (data === "connected") {
-                callback(true);
-            }
-            else {
-                callback(false);
-            }
+            callback(data === "connected");
         });
     }
 

@@ -1,10 +1,25 @@
 {
   "name": "react-native-linea",
-  "version": "1.3.1",
-  "description": "React Native wrapper for Linea Pro SDK",
+  "version": "2.0.0",
+  "description": "React Native wrapper for Linea Pro SDK (Updated for React Native 0.77+)",
   "main": "LineaPro.js",
-  "repository": "git@github.com:godlevel/react-native-linea.git",
+  "react-native": "LineaPro.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andreasordell/react-native-linea.git"
+  },
   "author": "Angelo A",
   "license": "MIT",
-  "dependencies": {}
+  "dependencies": {
+    "react-native": "^0.77.0"
+  },
+  "peerDependencies": {
+    "react-native": ">=0.65.0"
+  },
+  "nativeModules": {
+    "RCTLinea": {
+      "ios": "ios/"
+    }
+  },
+  "packageManager": "yarn@1.22.22"
 }
